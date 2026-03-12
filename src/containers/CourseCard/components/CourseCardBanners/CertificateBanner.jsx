@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { MailtoLink, Hyperlink } from '@openedx/paragon';
-import { CheckCircle } from '@openedx/paragon/icons';
+import { CheckCircle, WarningFilled } from '@openedx/paragon/icons';
 import { useIntl } from '@edx/frontend-platform/i18n';
 
 import { utilHooks, reduxHooks } from 'hooks';
@@ -18,75 +18,39 @@ export const CertificateBanner = ({ cardId }) => {
   const {
     isAudit,
     isVerified,
+    hasStarted,
   } = reduxHooks.useCardEnrollmentData(cardId);
   const { isPassing } = reduxHooks.useCardGradeData(cardId);
   const { isArchived } = reduxHooks.useCardCourseRunData(cardId);
   const { minPassingGrade, progressUrl } = reduxHooks.useCardCourseRunData(cardId);
+  const { completeCount, incompleteCount, lockedCount } = reduxHooks.useCardCompletionSummaryData(cardId);
+  const numTotalUnits = completeCount + incompleteCount + lockedCount;
+  const completePercentage = completeCount ? Number(((completeCount / numTotalUnits) * 100).toFixed(0)) : 0;
   const { supportEmail, billingEmail } = reduxHooks.usePlatformSettingsData();
   const { formatMessage } = useIntl();
   const formatDate = useFormatDate();
 
   const emailLink = address => <MailtoLink to={address}>{address}</MailtoLink>;
 
-  if (certificate.isRestricted) {
-    return (
-      <Banner variant="danger">
-        { supportEmail ? formatMessage(messages.certRestricted, { supportEmail: emailLink(supportEmail) }) : formatMessage(messages.certRestrictedNoEmail)}
-        {isVerified && '  '}
-        {isVerified && (billingEmail ? formatMessage(messages.certRefundContactBilling, { billingEmail: emailLink(billingEmail) }) : formatMessage(messages.certRefundContactBillingNoEmail))}
-      </Banner>
-    );
-  }
-  if (certificate.isDownloadable) {
+  if (completePercentage === 100) {
     return (
       <Banner variant="success" icon={CheckCircle}>
-        {formatMessage(messages.certReady)}
-        {certificate.certPreviewUrl && (
-          <>
-            {'  '}
-            <Hyperlink isInline destination={certificate.certPreviewUrl}>
-              {formatMessage(messages.viewCertificate)}
-            </Hyperlink>
-          </>
-        )}
+        {formatMessage(messages.fullyCompleted)}
       </Banner>
     );
   }
-  if (!isPassing) {
-    if (isAudit) {
-      return (
-        <Banner>
-          {formatMessage(messages.passingGrade, { minPassingGrade })}
-        </Banner>
-      );
-    }
-    if (isArchived) {
-      return (
-        <Banner variant="warning">
-          {formatMessage(messages.notEligibleForCert)}
-          {'  '}
-          <Hyperlink isInline destination={progressUrl}>{formatMessage(messages.viewGrades)}</Hyperlink>
-        </Banner>
-      );
-    }
+  if (!hasStarted && completePercentage === 0) {
     return (
-      <Banner variant="warning">
-        {formatMessage(messages.certMinGrade, { minPassingGrade })}
+      <Banner variant="warning" icon={WarningFilled}>
+        {formatMessage(messages.notStarted)}
       </Banner>
     );
   }
-  if (certificate.isEarnedButUnavailable) {
-    return (
-      <Banner>
-        {formatMessage(
-          messages.gradeAndCertReadyAfter,
-          { availableDate: formatDate(certificate.availableDate) },
-        )}
-      </Banner>
-    );
-  }
-
-  return null;
+  return (
+    <Banner>
+      {formatMessage(messages.partiallyCompleted, { completePercentage })}
+    </Banner>
+  );
 };
 CertificateBanner.propTypes = {
   cardId: PropTypes.string.isRequired,

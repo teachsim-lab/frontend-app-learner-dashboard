@@ -51,6 +51,16 @@ const messages = defineMessages({
     description: 'Certificate ready message',
     defaultMessage: 'Congratulations.  Your certificate is ready.',
   },
+  fullyCompleted: {
+    id: 'learner-dash.courseCard.banners.fullyCompleted',
+    description: 'Module completed message',
+    defaultMessage: 'Congratulations. You have completed this module.',
+  },
+  notStarted: {
+    id: 'learner-dash.courseCard.banners.notStarted',
+    description: 'Module not started message',
+    defaultMessage: 'You have not started this module yet.',
+  },
   viewCertificate: {
     id: 'learner-dash.courseCard.banners.viewCertificate',
     description: 'Certificate link text',
@@ -60,6 +70,11 @@ const messages = defineMessages({
     id: 'learner-dash.courseCard.banners.certMinGrade',
     description: 'Passing grade requirement message',
     defaultMessage: 'Grade required for a certificate: {minPassingGrade}\u200f%',
+  },
+  partiallyCompleted: {
+    id: 'learner-dash.courseCard.banners.partiallyCompleted',
+    description: 'Module partially completed message',
+    defaultMessage: 'You have completed {completePercentage}% of the module.',
   },
   downloadCertificate: {
     id: 'learner-dash.courseCard.banners.downloadCertificate',

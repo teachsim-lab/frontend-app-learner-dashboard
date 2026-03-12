@@ -31,6 +31,7 @@ export const useCourseCardData = (selector) => (cardId) => useSelector(
 const { courseCard } = selectors;
 export const useCardCertificateData = useCourseCardData(courseCard.certificate);
 export const useCardCourseData = useCourseCardData(courseCard.course);
+export const useCardCompletionSummaryData = useCourseCardData(courseCard.completionSummary);
 export const useCardCourseRunData = useCourseCardData(courseCard.courseRun);
 export const useCardCreditData = useCourseCardData(courseCard.credit);
 export const useCardEnrollmentData = useCourseCardData(courseCard.enrollment);

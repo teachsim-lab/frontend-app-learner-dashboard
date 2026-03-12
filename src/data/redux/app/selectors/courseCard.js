@@ -38,6 +38,14 @@ export const courseCard = StrictDict({
     cardSimpleSelectors.courseProvider,
     (courseProvider) => ({ name: courseProvider?.name }),
   ),
+  completionSummary: mkCardSelector(
+    cardSimpleSelectors.completionSummary,
+    (completionSummary) => (completionSummary === null ? {} : {
+      completeCount: completionSummary.complete_count,
+      incompleteCount: completionSummary.incomplete_count,
+      lockedCount: completionSummary.locked_count,
+    }),
+  ),
   courseRun: mkCardSelector(
     cardSimpleSelectors.courseRun,
     (courseRun) => (courseRun === null ? {} : {
