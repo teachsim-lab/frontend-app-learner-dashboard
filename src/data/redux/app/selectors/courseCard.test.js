@@ -74,6 +74,7 @@ describe('courseCard selectors module', () => {
           isDownloadable: 'test-is-downloadable',
           isRestricted: 'test-is-restricted',
           isEarned: false,
+          isCertActive: 'test-is-cert-active',
           availableDate: '2020-10-10',
         });
       });
@@ -89,6 +90,9 @@ describe('courseCard selectors module', () => {
       it('passes [isDownloadable, isRestricted]', () => {
         expect(selected.isDownloadable).toEqual(testData.isDownloadable);
         expect(selected.isRestricted).toEqual(testData.isRestricted);
+      });
+      it('passes isCertActive', () => {
+        expect(selected.isCertActive).toEqual(testData.isCertActive);
       });
       it('passes certPreviewUrl as app url', () => {
         expect(selected.certPreviewUrl).toEqual(baseAppUrl(testData.certPreviewUrl));

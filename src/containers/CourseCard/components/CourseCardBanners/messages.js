@@ -34,7 +34,7 @@ const messages = defineMessages({
   passingGrade: {
     id: 'learner-dash.courseCard.banners.passingGrade',
     description: 'Message to learners with minimum passing grade for the course',
-    defaultMessage: 'Grade required to pass the course: {minPassingGrade}\u200f%',
+    defaultMessage: 'Grade required to pass the module: {minPassingGrade}\u200f%',
   },
   notEligibleForCert: {
     id: 'learner-dash.courseCard.banners.notEligibleForCert',
@@ -55,6 +55,16 @@ const messages = defineMessages({
     id: 'learner-dash.courseCard.banners.fullyCompleted',
     description: 'Module completed message',
     defaultMessage: 'Congratulations. You have completed this module.',
+  },
+  certificateOffered: {
+    id: 'learner-dash.courseCard.banners.certificateOffered',
+    description: 'Message indicating this module offers a certificate upon passing',
+    defaultMessage: 'This module offers a certificate.',
+  },
+  certificateNotOffered: {
+    id: 'learner-dash.courseCard.banners.certificateNotOffered',
+    description: 'Message indicating this module does not offer a certificate',
+    defaultMessage: 'This module does not offer a certificate.',
   },
   notStarted: {
     id: 'learner-dash.courseCard.banners.notStarted',

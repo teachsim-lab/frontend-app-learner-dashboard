@@ -23,6 +23,10 @@ export const courseCard = StrictDict({
       isEarnedButUnavailable: certificate.isEarned && new Date(certificate.availableDate) > new Date(),
       isRestricted: certificate.isRestricted,
       isEarned: certificate.isEarned,
+      // TeachSim customization: course-level "does this course have an
+      // active certificate configured" flag (independent of this learner's
+      // own progress) - see CertificateBanner's mixed messaging.
+      isCertActive: certificate.isCertActive,
     })),
   ),
   course: mkCardSelector(
